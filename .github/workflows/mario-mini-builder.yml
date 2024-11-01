@@ -22,7 +22,7 @@ jobs:
 
       - name: Clone GB Studio 4.2.0 Source
         run: |
-          git clone --branch v4.2.0 --depth 1 https://github.com/chrismaltby/gb-studio.git
+          git clone --branch develop --depth 1 https://github.com/chrismaltby/gb-studio.git
           cd gb-studio
           npm install
           npm run build
