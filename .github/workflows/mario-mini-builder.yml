@@ -27,15 +27,22 @@ jobs:
           npm install --legacy-peer-deps
           cd ..
 
-      # New step to list files and check for potential CLI files
+      # List files to help identify the correct entry point
       - name: List GB Studio files for inspection
         run: ls -R gb-studio
 
-      # Try running GB Studio in headless mode (if supported)
+      # Attempt to run Electron pointing to the likely entry point, 'dist/app.js'
       - name: Attempt Headless Export for Web
         run: |
-          # Replace 'app.asar' with the entry point if found
-          npx electron gb-studio/app.asar --build SuperMarioBrosMini --export web --output ./exported-web || echo "CLI export not found"
+          npx electron gb-studio/dist/app.js --build SuperMarioBrosMini --export web --output ./exported-web || echo "CLI export not found"
+
+      # Alternative: Launch the GB Studio Electron app for export
+      - name: Export using GB Studio application if CLI fails
+        run: |
+          cd gb-studio
+          npm run build  # Assuming `build` generates the main application
+          npx electron . --build ../SuperMarioBrosMini --export web --output ../exported-web || echo "Application export failed"
+        working-directory: gb-studio
 
       - name: Upload Web Export as Artifact
         uses: actions/upload-artifact@v4
