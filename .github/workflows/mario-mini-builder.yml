@@ -25,24 +25,30 @@ jobs:
           git clone --branch develop --depth 1 https://github.com/chrismaltby/gb-studio.git
           cd gb-studio
           npm install --legacy-peer-deps
-          cd ..
 
-      # List files to help identify the correct entry point
-      - name: List GB Studio files for inspection
-        run: ls -R gb-studio
+      # Check directory structure to confirm successful clone
+      - name: List files for inspection
+        run: ls -R gb-studio || echo "gb-studio directory not found"
 
-      # Attempt to run Electron pointing to the likely entry point, 'dist/app.js'
+      # Attempt to use Electron with corrected paths
       - name: Attempt Headless Export for Web
         run: |
-          npx electron gb-studio/dist/app.js --build SuperMarioBrosMini --export web --output ./exported-web || echo "CLI export not found"
+          if [ -d "gb-studio/dist" ]; then
+            npx electron gb-studio/dist/app.js --build SuperMarioBrosMini --export web --output ./exported-web || echo "CLI export not found"
+          else
+            echo "Expected gb-studio/dist directory not found"
+          fi
 
-      # Alternative: Launch the GB Studio Electron app for export
+      # Alternative: Run the application directly if CLI fails
       - name: Export using GB Studio application if CLI fails
         run: |
-          cd gb-studio
-          npm run build  # Assuming `build` generates the main application
-          npx electron . --build ../SuperMarioBrosMini --export web --output ../exported-web || echo "Application export failed"
-        working-directory: gb-studio
+          if [ -d "gb-studio" ]; then
+            cd gb-studio
+            npm run build  # Assuming 'build' generates the main application
+            npx electron . --build ../SuperMarioBrosMini --export web --output ../exported-web || echo "Application export failed"
+          else
+            echo "gb-studio directory not found for application export"
+          fi
 
       - name: Upload Web Export as Artifact
         uses: actions/upload-artifact@v4
