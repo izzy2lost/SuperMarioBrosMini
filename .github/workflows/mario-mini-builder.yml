@@ -27,9 +27,15 @@ jobs:
           npm install --legacy-peer-deps
           cd ..
 
-      - name: Export project for Web
+      # New step to list files and check for CLI alternatives
+      - name: List GB Studio files for inspection
+        run: ls -R gb-studio
+
+      # Try the alternative CLI path or find the actual entry point
+      - name: Export project for Web (if CLI is found)
         run: |
-          node gb-studio/out/cli.js build SuperMarioBrosMini --export web --output ./exported-web
+          # Adjust the path based on the correct CLI location found in the previous step
+          node gb-studio/out/path_to_correct_cli.js build SuperMarioBrosMini --export web --output ./exported-web
 
       - name: Upload Web Export as Artifact
         uses: actions/upload-artifact@v4
