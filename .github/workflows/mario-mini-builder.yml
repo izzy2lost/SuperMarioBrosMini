@@ -14,18 +14,20 @@ jobs:
       - name: Checkout SuperMarioBrosMini project
         uses: actions/checkout@v3
 
-      - name: Install Node.js (required for GB Studio)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install GB Studio CLI
+      - name: Install dependencies for GB Studio
         run: |
-          npm install -g gb-studio@4.2.0
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libnss3 libxss1 libasound2 libx11-xcb-dev libxcomposite1 libxcursor1 libxdamage1 libxrandr2 libgbm1
+
+      - name: Download GB Studio 4.2.0
+        run: |
+          wget https://github.com/chrismaltby/gb-studio/releases/download/v4.2.0/gb-studio-4.2.0-linux.zip -O gb-studio.zip
+          unzip gb-studio.zip -d gb-studio
+          chmod +x gb-studio/gb-studio
 
       - name: Export project for Web
         run: |
-          gb-studio build SuperMarioBrosMini --export web --output ./exported-web
+          ./gb-studio/gb-studio build SuperMarioBrosMini --export web --output ./exported-web
 
       - name: Upload Web Export as Artifact
         uses: actions/upload-artifact@v4
