@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout SuperMarioBrosMini project
         uses: actions/checkout@v3
-
+        
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -25,7 +25,6 @@ jobs:
           git clone --branch develop --depth 1 https://github.com/chrismaltby/gb-studio.git
           cd gb-studio
           npm install --legacy-peer-deps
-          npm run build
           cd ..
 
       - name: Export project for Web
