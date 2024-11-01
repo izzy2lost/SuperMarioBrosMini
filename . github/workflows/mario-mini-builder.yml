@@ -1,0 +1,34 @@
+name: GB Studio Web Export
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout SuperMarioBrosMini project
+        uses: actions/checkout@v3
+
+      - name: Install Node.js (required for GB Studio)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install GB Studio CLI
+        run: |
+          npm install -g gb-studio@4.2.0
+
+      - name: Export project for Web
+        run: |
+          gb-studio build SuperMarioBrosMini --export web --output ./exported-web
+
+      - name: Upload Web Export as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-export
+          path: ./exported-web
