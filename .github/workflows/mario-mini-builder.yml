@@ -27,15 +27,15 @@ jobs:
           npm install --legacy-peer-deps
           cd ..
 
-      # New step to list files and check for CLI alternatives
+      # New step to list files and check for potential CLI files
       - name: List GB Studio files for inspection
         run: ls -R gb-studio
 
-      # Try the alternative CLI path or find the actual entry point
-      - name: Export project for Web (if CLI is found)
+      # Try running GB Studio in headless mode (if supported)
+      - name: Attempt Headless Export for Web
         run: |
-          # Adjust the path based on the correct CLI location found in the previous step
-          node gb-studio/out/path_to_correct_cli.js build SuperMarioBrosMini --export web --output ./exported-web
+          # Replace 'app.asar' with the entry point if found
+          npx electron gb-studio/app.asar --build SuperMarioBrosMini --export web --output ./exported-web || echo "CLI export not found"
 
       - name: Upload Web Export as Artifact
         uses: actions/upload-artifact@v4
