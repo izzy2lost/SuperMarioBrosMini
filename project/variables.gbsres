@@ -372,6 +372,36 @@
       "symbol": "var_isskippingmusic"
     },
     {
+      "id": "74",
+      "name": "ActualWorld",
+      "symbol": "var_actualworld"
+    },
+    {
+      "id": "75",
+      "name": "ActualLevel",
+      "symbol": "var_actuallevel"
+    },
+    {
+      "id": "76",
+      "name": "ActualSubLevel",
+      "symbol": "var_actualsublevel"
+    },
+    {
+      "id": "77",
+      "name": "IsPaused",
+      "symbol": "var_ispaused"
+    },
+    {
+      "id": "78",
+      "name": "InWarpZone",
+      "symbol": "var_inwarpzone"
+    },
+    {
+      "id": "79",
+      "name": "LevelComplete",
+      "symbol": "var_levelcomplete"
+    },
+    {
       "id": "99ba378a-ca76-4655-a8b8-8bf2dbc06f01__L0",
       "name": "Local 0",
       "symbol": "var_local_0"

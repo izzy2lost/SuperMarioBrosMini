@@ -20,6 +20,17 @@
       "id": "a6c3cefe-f22b-4dd4-a465-c654ad6accfb"
     },
     {
+      "command": "EVENT_SET_VALUE",
+      "args": {
+        "variable": "76",
+        "value": {
+          "type": "variable",
+          "value": "22"
+        }
+      },
+      "id": "edcad2ab-8390-4929-b70a-8ce9da3e408f"
+    },
+    {
       "command": "EVENT_IF",
       "args": {
         "condition": {
@@ -918,7 +929,7 @@
                 "type": "number",
                 "value": 13
               },
-              "__collapseCase14": false,
+              "__collapseCase14": true,
               "value14": {
                 "type": "number",
                 "value": 14
@@ -10417,7 +10428,7 @@
                             "value": 16
                           },
                           "__collapseElse": false,
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true0": [
